@@ -1,78 +1,2143 @@
+```html
 <!DOCTYPE html>
 <html lang="no">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SETUP — Din digitale operasjonspartner</title>
-<style>
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;margin:0;background:#f5f5f7;color:#1d1d1f}
-nav{position:fixed;top:0;width:100%;background:white;padding:15px 30px;display:flex;justify-content:space-between;box-shadow:0 1px 5px rgba(0,0,0,0.05)}
-nav a{text-decoration:none;color:#1d1d1f;margin-left:20px}
-.hero{padding:140px 20px;text-align:center}
-.hero h1{font-size:56px;margin-bottom:20px}
-.hero p{font-size:22px;color:#6e6e73}
-.btn{background:#0071e3;color:white;padding:14px 28px;border-radius:30px;text-decoration:none;display:inline-block;margin-top:20px}
-.section{padding:100px 20px;text-align:center}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;max-width:1000px;margin:40px auto}
-.card{background:white;padding:30px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.05)}
-footer{padding:40px;text-align:center;background:#fff;border-top:1px solid #ddd}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SETUP — Digital drift, AI og automatisering for SMB</title>
+  <meta
+    name="description"
+    content="SETUP hjelper håndverkere og SMB-er med å automatisere henvendelser, forenkle administrasjon og få full oversikt gjennom et moderne dashboard."
+  />
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --bg-soft: #ece7dd;
+      --surface: #ffffff;
+      --surface-2: #f8f6f1;
+      --ink: #171712;
+      --muted: #5f6258;
+      --line: rgba(23, 23, 18, 0.09);
+      --line-strong: rgba(23, 23, 18, 0.16);
+      --brand: #24463b;
+      --brand-2: #9c6a47;
+      --brand-3: #d8c6b1;
+      --accent: #1f6fff;
+      --accent-hover: #0d5ae0;
+      --success: #1f8a4d;
+      --warning: #a36a2b;
+      --shadow: 0 16px 50px rgba(26, 28, 24, 0.08);
+      --shadow-soft: 0 10px 24px rgba(26, 28, 24, 0.06);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1220px;
+      --nav-h: 58px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.45;
+      letter-spacing: -0.015em;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(100% - 40px, var(--max));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brand);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 30px;
+      height: 1px;
+      background: currentColor;
+      opacity: 0.4;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 46px;
+      padding: 0 20px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: 0.22s ease;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 10px 24px rgba(31, 111, 255, 0.18);
+    }
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.72);
+      color: var(--ink);
+      border-color: rgba(23,23,18,0.08);
+      backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover { background: white; }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: rgba(255,255,255,0.24);
+      color: white;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.08); }
+
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: var(--nav-h);
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      background: rgba(244, 241, 234, 0.74);
+      border-bottom: 1px solid rgba(23, 23, 18, 0.06);
+    }
+
+    .site-nav .inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 22px;
+      height: 22px;
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, var(--brand) 0%, #365d50 100%);
+      position: relative;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16);
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      background: rgba(255,255,255,0.9);
+      border-radius: 999px;
+    }
+
+    .brand-mark::before {
+      width: 12px;
+      height: 2px;
+      left: 5px;
+      top: 10px;
+    }
+
+    .brand-mark::after {
+      width: 2px;
+      height: 12px;
+      left: 10px;
+      top: 5px;
+    }
+
+    .brand-text {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      min-width: 0;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      color: rgba(23,23,18,0.78);
+      transition: color 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 52px 0 24px;
+    }
+
+    .hero-shell {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 28px;
+      align-items: stretch;
+      min-height: calc(100vh - var(--nav-h) - 32px);
+    }
+
+    .hero-copy,
+    .hero-visual {
+      border-radius: 34px;
+      overflow: hidden;
+      position: relative;
+      min-height: 620px;
+    }
+
+    .hero-copy {
+      padding: 48px 42px 42px;
+      background:
+        radial-gradient(circle at top right, rgba(156, 106, 71, 0.12), transparent 32%),
+        linear-gradient(180deg, #fbfaf7 0%, #f3eee5 100%);
+      border: 1px solid rgba(23,23,18,0.06);
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-top {
+      max-width: 680px;
+    }
+
+    .hero h1 {
+      margin: 18px 0 18px;
+      font-size: clamp(42px, 6vw, 78px);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      font-weight: 700;
+    }
+
+    .hero-lead {
+      max-width: 640px;
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.34;
+      color: var(--muted);
+      margin: 0 0 26px;
+    }
+
+    .hero-support {
+      max-width: 600px;
+      font-size: 15px;
+      color: rgba(23,23,18,0.74);
+      margin: 18px 0 0;
+    }
+
+    .micro-note {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .micro-card {
+      padding: 18px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.66);
+      border: 1px solid rgba(23,23,18,0.06);
+    }
+
+    .micro-card strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .micro-card span {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .hero-visual {
+      background:
+        radial-gradient(circle at 78% 18%, rgba(216, 198, 177, 0.22), transparent 16%),
+        radial-gradient(circle at 22% 24%, rgba(255,255,255,0.06), transparent 24%),
+        linear-gradient(180deg, #24362f 0%, #1b2622 100%);
+      color: white;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom, rgba(255,255,255,0.03), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(156, 106, 71, 0.3), transparent 28%);
+      pointer-events: none;
+    }
+
+    .visual-wrap {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .signal-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      width: fit-content;
+      border-radius: 999px;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 12px;
+      color: rgba(255,255,255,0.84);
+    }
+
+    .signal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #8af0b0;
+      box-shadow: 0 0 0 6px rgba(138,240,176,0.12);
+    }
+
+    .visual-copy h2 {
+      margin: 0 0 14px;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      max-width: 440px;
+    }
+
+    .visual-copy p {
+      margin: 0;
+      max-width: 460px;
+      color: rgba(255,255,255,0.76);
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .panel-stack {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 16px;
+      align-items: end;
+    }
+
+    .glass {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 24px;
+    }
+
+    .dashboard-card {
+      padding: 18px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .dash-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dash-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .dash-muted {
+      font-size: 12px;
+      color: rgba(255,255,255,0.54);
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .metric {
+      border-radius: 18px;
+      padding: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .metric .label {
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+    }
+
+    .metric .value {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: white;
+    }
+
+    .metric .sub {
+      font-size: 12px;
+      color: rgba(255,255,255,0.62);
+      margin-top: 5px;
+    }
+
+    .timeline {
+      margin-top: auto;
+      display: grid;
+      gap: 10px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 12px 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .timeline-item:first-child { border-top: none; }
+
+    .status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #7de7a3;
+    }
+
+    .status.warning { background: #e6bb74; }
+    .status.neutral { background: rgba(255,255,255,0.38); }
+
+    .timeline-main {
+      font-size: 13px;
+      color: rgba(255,255,255,0.86);
+    }
+
+    .timeline-meta {
+      font-size: 12px;
+      color: rgba(255,255,255,0.54);
+      white-space: nowrap;
+    }
+
+    .callout-card {
+      padding: 20px;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .callout-card h3 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+    }
+
+    .callout-card p {
+      margin: 0;
+      color: rgba(255,255,255,0.7);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill-list span {
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-size: 12px;
+      color: rgba(255,255,255,0.84);
+    }
+
+    section {
+      position: relative;
+    }
+
+    .section {
+      padding: 108px 0;
+    }
+
+    .section-tight { padding: 84px 0; }
+
+    .section-dark {
+      background:
+        radial-gradient(circle at top left, rgba(156, 106, 71, 0.12), transparent 20%),
+        linear-gradient(180deg, #20322b 0%, #18211d 100%);
+      color: white;
+    }
+
+    .section-light {
+      background: var(--surface-2);
+    }
+
+    .section-white {
+      background: var(--surface);
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 40px;
+    }
+
+    .section-head h2 {
+      margin: 14px 0 14px;
+      font-size: clamp(34px, 4vw, 58px);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+      font-weight: 700;
+    }
+
+    .section-head p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--muted);
+      max-width: 640px;
+    }
+
+    .section-dark .section-head p {
+      color: rgba(255,255,255,0.72);
+    }
+
+    .problem-layout {
+      display: grid;
+      grid-template-columns: 0.96fr 1.04fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .problem-intro {
+      padding-right: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .problem-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 24px;
+      min-height: 180px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
+    }
+
+    .problem-card .icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.08);
+      margin-bottom: 18px;
+      font-size: 20px;
+    }
+
+    .problem-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .problem-card p {
+      margin: 0;
+      color: rgba(255,255,255,0.74);
+      font-size: 15px;
+      line-height: 1.58;
+    }
+
+    .editorial-band {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .story-card,
+    .insight-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .story-card {
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 420px;
+      background:
+        radial-gradient(circle at top right, rgba(156, 106, 71, 0.10), transparent 22%),
+        linear-gradient(180deg, #fffdfa 0%, #f6f1e7 100%);
+    }
+
+    .story-card h3 {
+      margin: 18px 0 14px;
+      font-size: clamp(28px, 3.5vw, 44px);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+      max-width: 560px;
+    }
+
+    .story-card p {
+      max-width: 620px;
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin: 0 0 16px;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .check-item {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      gap: 12px;
+      align-items: start;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .check-badge {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(36,70,59,0.10);
+      color: var(--brand);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 1px;
+    }
+
+    .insight-card {
+      background:
+        linear-gradient(180deg, #23362f 0%, #1b2622 100%);
+      color: white;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 420px;
+      border: 1px solid rgba(255,255,255,0.04);
+      box-shadow: var(--shadow);
+    }
+
+    .insight-card h3 {
+      margin: 16px 0 10px;
+      font-size: 30px;
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+      max-width: 360px;
+    }
+
+    .insight-card p {
+      margin: 0;
+      color: rgba(255,255,255,0.72);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 380px;
+    }
+
+    .insight-panel {
+      display: grid;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .insight-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .insight-row strong {
+      display: block;
+      font-size: 14px;
+      color: white;
+      margin-bottom: 4px;
+    }
+
+    .insight-row span {
+      font-size: 12px;
+      color: rgba(255,255,255,0.62);
+    }
+
+    .chip {
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .chip-green {
+      background: rgba(125, 231, 163, 0.12);
+      color: #9bf0bc;
+      border: 1px solid rgba(125, 231, 163, 0.14);
+    }
+
+    .chip-gold {
+      background: rgba(230, 187, 116, 0.12);
+      color: #f0cb90;
+      border: 1px solid rgba(230, 187, 116, 0.14);
+    }
+
+    .chip-soft {
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.84);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 26px;
+      align-items: start;
+    }
+
+    .dashboard-copy {
+      padding-top: 10px;
+    }
+
+    .dashboard-copy h3 {
+      margin: 14px 0 16px;
+      font-size: clamp(30px, 3.2vw, 46px);
+      line-height: 1.04;
+      letter-spacing: -0.045em;
+    }
+
+    .dashboard-copy p {
+      margin: 0 0 18px;
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.64;
+      max-width: 480px;
+    }
+
+    .detail-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .detail-item {
+      display: grid;
+      grid-template-columns: 12px 1fr;
+      gap: 12px;
+      align-items: start;
+      font-size: 15px;
+      color: var(--ink);
+    }
+
+    .detail-item .dot-mini {
+      width: 8px;
+      height: 8px;
+      margin-top: 8px;
+      border-radius: 50%;
+      background: var(--brand-2);
+    }
+
+    .dashboard-ui {
+      border-radius: 30px;
+      overflow: hidden;
+      background: white;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .ui-bar {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      background: #faf8f3;
+    }
+
+    .ui-dots {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .ui-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: block;
+      background: #dfdad0;
+    }
+
+    .ui-dots span:nth-child(1) { background: #d5b495; }
+    .ui-dots span:nth-child(2) { background: #ccb888; }
+    .ui-dots span:nth-child(3) { background: #92b89b; }
+
+    .ui-title {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .ui-shell {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      min-height: 520px;
+    }
+
+    .sidebar {
+      background: #fbfaf7;
+      border-right: 1px solid var(--line);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar-group {
+      display: grid;
+      gap: 8px;
+    }
+
+    .sidebar-label {
+      font-size: 11px;
+      color: rgba(23,23,18,0.45);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .side-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 40px;
+      padding: 0 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      color: rgba(23,23,18,0.72);
+    }
+
+    .side-link.active {
+      background: rgba(36,70,59,0.08);
+      color: var(--brand);
+      font-weight: 600;
+    }
+
+    .side-icon {
+      width: 18px;
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    .ui-main {
+      padding: 20px;
+      display: grid;
+      gap: 18px;
+      background: white;
+    }
+
+    .ui-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .ui-kpi {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      background: #fcfbf8;
+    }
+
+    .ui-kpi .kpi-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .ui-kpi .kpi-value {
+      font-size: 28px;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .ui-kpi .kpi-note {
+      margin-top: 6px;
+      font-size: 12px;
+      color: rgba(23,23,18,0.5);
+    }
+
+    .ui-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 14px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #fcfbf8;
+      padding: 18px;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .panel-head strong {
+      font-size: 15px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+
+    .panel-head span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .pipeline-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .pipe-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+      border-radius: 16px;
+      background: white;
+      border: 1px solid rgba(23,23,18,0.06);
+    }
+
+    .pipe-left strong {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .pipe-left span {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .pipe-tag {
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      background: rgba(36,70,59,0.08);
+      color: var(--brand);
+    }
+
+    .summary-stack {
+      display: grid;
+      gap: 10px;
+    }
+
+    .summary-box {
+      border-radius: 16px;
+      padding: 16px;
+      background: white;
+      border: 1px solid rgba(23,23,18,0.06);
+    }
+
+    .summary-box strong {
+      display: block;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .summary-box p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .services-layout {
+      display: grid;
+      grid-template-columns: 0.84fr 1.16fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .services-copy p {
+      max-width: 420px;
+      margin: 0;
+      color: rgba(255,255,255,0.74);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .service-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 22px;
+      min-height: 210px;
+    }
+
+    .service-card .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .service-card .icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(255,255,255,0.08);
+      font-size: 19px;
+    }
+
+    .service-card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      letter-spacing: -0.03em;
+    }
+
+    .service-card p {
+      margin: 0;
+      color: rgba(255,255,255,0.74);
+      font-size: 15px;
+      line-height: 1.58;
+    }
+
+    .steps-band {
+      display: grid;
+      gap: 18px;
+    }
+
+    .step-card {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 18px;
+      align-items: stretch;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: 24px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .step-no {
+      font-size: 42px;
+      line-height: 1;
+      font-weight: 700;
+      color: rgba(36,70,59,0.26);
+      letter-spacing: -0.05em;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 4px;
+    }
+
+    .step-card h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+
+    .step-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.62;
+      max-width: 760px;
+    }
+
+    .audience-layout {
+      display: grid;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .audience-copy p {
+      margin: 0;
+      max-width: 480px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .audience-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .audience-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow-soft);
+      min-height: 185px;
+    }
+
+    .audience-card .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(36,70,59,0.08);
+      color: var(--brand);
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+
+    .audience-card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      letter-spacing: -0.03em;
+    }
+
+    .audience-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .trust-shell {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .trust-card {
+      border-radius: 28px;
+      padding: 28px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .trust-card h3 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+
+    .trust-card p {
+      margin: 0;
+      color: rgba(255,255,255,0.74);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .cta-shell {
+      background:
+        radial-gradient(circle at top right, rgba(156, 106, 71, 0.12), transparent 22%),
+        linear-gradient(180deg, #fffdfa 0%, #f2ece2 100%);
+      border: 1px solid var(--line);
+      border-radius: 34px;
+      padding: 42px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .cta-copy h2 {
+      margin: 14px 0 14px;
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+    }
+
+    .cta-copy p {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.64;
+      max-width: 620px;
+    }
+
+    .contact-card {
+      background: white;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .contact-head {
+      padding: 22px 22px 0;
+    }
+
+    .contact-head h3 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+
+    .contact-list {
+      padding: 16px 22px 22px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .contact-item {
+      padding: 16px;
+      border-radius: 16px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+    }
+
+    .contact-item .label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(23,23,18,0.48);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .contact-item a {
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    footer {
+      background: #ece6dc;
+      border-top: 1px solid rgba(23,23,18,0.08);
+      padding: 42px 0 48px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr 0.85fr 1fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .footer-brand p {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.65;
+      max-width: 360px;
+    }
+
+    .footer-col strong {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(23,23,18,0.55);
+      margin-bottom: 14px;
+    }
+
+    .footer-col a,
+    .footer-col span {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: rgba(23,23,18,0.82);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      margin-top: 30px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(23,23,18,0.08);
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 1120px) {
+      .hero-shell,
+      .problem-layout,
+      .editorial-band,
+      .dashboard-layout,
+      .services-layout,
+      .audience-layout,
+      .cta-shell,
+      .footer-grid,
+      .trust-shell,
+      .ui-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .hero-visual,
+      .story-card,
+      .insight-card {
+        min-height: auto;
+      }
+
+      .ui-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .service-grid,
+      .problem-grid,
+      .audience-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .cta-shell {
+        padding: 32px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .nav-links {
+        display: none;
+      }
+
+      .site-nav .inner {
+        justify-content: space-between;
+      }
+
+      .hero {
+        padding-top: 24px;
+      }
+
+      .hero-copy {
+        padding: 28px 22px 22px;
+      }
+
+      .visual-wrap {
+        padding: 22px;
+      }
+
+      .micro-note,
+      .service-grid,
+      .problem-grid,
+      .audience-grid,
+      .metric-grid,
+      .ui-kpis,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 82px 0;
+      }
+
+      .section-tight {
+        padding: 68px 0;
+      }
+
+      .hero h1 {
+        font-size: clamp(38px, 13vw, 54px);
+      }
+
+      .hero-lead {
+        font-size: 19px;
+      }
+
+      .section-head h2,
+      .cta-copy h2 {
+        font-size: clamp(30px, 11vw, 42px);
+      }
+
+      .story-card h3,
+      .dashboard-copy h3,
+      .visual-copy h2 {
+        font-size: clamp(28px, 9vw, 38px);
+      }
+
+      .step-card {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .step-no {
+        justify-content: flex-start;
+      }
+
+      .ui-main {
+        padding: 16px;
+      }
+
+      .panel-stack {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 <body>
+  <nav class="site-nav" aria-label="Hovednavigasjon">
+    <div class="container inner">
+      <a class="brand" href="#top" aria-label="SETUP">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-text">SETUP</span>
+      </a>
 
-<nav>
-<div><strong>SETUP</strong></div>
-<div>
-<a href="#tjenester">Tjenester</a>
-<a href="#hvordan">Hvordan</a>
-<a href="#kontakt">Kontakt</a>
-</div>
-</nav>
+      <div class="nav-links">
+        <a href="#tjenester">Tjenester</a>
+        <a href="#hvordan">Hvordan det fungerer</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
 
-<section class="hero">
-<h1>Din digitale operasjonspartner</h1>
-<p>Vi bygger automatisering og AI-løsninger som fanger leads, sparer tid og gir deg full kontroll.</p>
-<a href="tel:+4799999999" class="btn">Book demo</a>
-</section>
+      <div class="nav-right">
+        <a href="tel:+47999999999" class="btn btn-primary">Book demo</a>
+      </div>
+    </div>
+  </nav>
 
-<section class="section" id="tjenester">
-<h2>Hva vi gjør</h2>
-<div class="grid">
-<div class="card">
-<h3>Automatisering</h3>
-<p>Fang alle henvendelser automatisk.</p>
-</div>
-<div class="card">
-<h3>AI svar</h3>
-<p>Kunder får svar med én gang.</p>
-</div>
-<div class="card">
-<h3>Dashboard</h3>
-<p>Full oversikt over leads og oppdrag.</p>
-</div>
-</div>
-</section>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-shell">
+        <div class="hero-copy">
+          <div class="hero-top">
+            <span class="eyebrow">AI og automatisering for SMB</span>
+            <h1>Bygg den digitale siden av bedriften din.</h1>
+            <p class="hero-lead">
+              SETUP hjelper håndverkere og servicebedrifter med å fange henvendelser,
+              automatisere kjedelige prosesser og få en tydelig oversikt over det som faktisk skjer i bedriften.
+            </p>
+            <div class="btn-row">
+              <a href="#kontakt" class="btn btn-primary">Book demo</a>
+              <a href="#hvordan" class="btn btn-secondary">Se hvordan det fungerer</a>
+            </div>
+            <p class="hero-support">
+              For bedrifter som er åpne for AI og automatisering, men som ikke vil bruke tid på å bli tekniske.
+              Vi gjør det praktisk, relevant og målbart.
+            </p>
+          </div>
 
-<section class="section" id="hvordan">
-<h2>Slik fungerer det</h2>
-<div class="grid">
-<div class="card"><h3>1. Kartlegging</h3><p>Vi forstår din bedrift</p></div>
-<div class="card"><h3>2. Oppsett</h3><p>Vi bygger systemet</p></div>
-<div class="card"><h3>3. Resultat</h3><p>Du får kontroll og vekst</p></div>
-</div>
-</section>
+          <div class="micro-note">
+            <div class="micro-card">
+              <strong>Henvendelser</strong>
+              <span>Mer struktur rundt anrop, skjema, meldinger og innkommende leads.</span>
+            </div>
+            <div class="micro-card">
+              <strong>Automasjon</strong>
+              <span>Repeterende oppgaver flyttes ut av hodet ditt og inn i system.</span>
+            </div>
+            <div class="micro-card">
+              <strong>Oversikt</strong>
+              <span>Et dashboard som gjør verdiskapningen tydeligere for deg og teamet.</span>
+            </div>
+          </div>
+        </div>
 
-<section class="section" id="kontakt">
-<h2>Klar for neste steg?</h2>
-<p>Kontakt oss i dag</p>
-<a href="tel:+4799999999" class="btn">Ring nå</a>
-<br><br>
-<a href="mailto:setupworks@hotmail.com">setupworks@hotmail.com</a>
-</section>
+        <div class="hero-visual">
+          <div class="visual-wrap">
+            <div class="signal-pill">
+              <span class="signal-dot"></span>
+              Operasjonell oversikt i sanntid
+            </div>
 
-<footer>
-<p>© SETUP 2026</p>
-</footer>
+            <div class="visual-copy">
+              <h2>Fra manuell uro til rolig kontroll.</h2>
+              <p>
+                Henvendelser, oppfølging, status og aktivitet samles i én struktur.
+                Resultatet er mindre friksjon, raskere respons og en bedrift som oppleves mer profesjonell.
+              </p>
+            </div>
 
+            <div class="panel-stack">
+              <div class="dashboard-card glass">
+                <div class="dash-head">
+                  <div>
+                    <div class="dash-title">Driftsoversikt</div>
+                    <div class="dash-muted">Leadflyt, oppfølging og aktivitet</div>
+                  </div>
+                  <span class="chip chip-soft">Dashboard</span>
+                </div>
+
+                <div class="metric-grid">
+                  <div class="metric">
+                    <div class="label">Inngående</div>
+                    <div class="value">Henvendelser</div>
+                    <div class="sub">Telefon, skjema, melding</div>
+                  </div>
+                  <div class="metric">
+                    <div class="label">Status</div>
+                    <div class="value">Oppfølging</div>
+                    <div class="sub">Åpen, pågående, fullført</div>
+                  </div>
+                  <div class="metric">
+                    <div class="label">Struktur</div>
+                    <div class="value">Pipeline</div>
+                    <div class="sub">Fra første kontakt til neste steg</div>
+                  </div>
+                  <div class="metric">
+                    <div class="label">Effekt</div>
+                    <div class="value">Oversikt</div>
+                    <div class="sub">Mer kontroll, mindre administrasjon</div>
+                  </div>
+                </div>
+
+                <div class="timeline">
+                  <div class="timeline-item">
+                    <span class="status"></span>
+                    <div class="timeline-main">Ny henvendelse registrert og sendt til riktig flyt</div>
+                    <div class="timeline-meta">Nå</div>
+                  </div>
+                  <div class="timeline-item">
+                    <span class="status warning"></span>
+                    <div class="timeline-main">Oppfølging planlagt automatisk</div>
+                    <div class="timeline-meta">Neste steg</div>
+                  </div>
+                  <div class="timeline-item">
+                    <span class="status neutral"></span>
+                    <div class="timeline-main">Dashboard oppdatert for teamet</div>
+                    <div class="timeline-meta">Løpende</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="callout-card glass">
+                <div>
+                  <span class="eyebrow" style="color: rgba(255,255,255,0.8);">Digital drift</span>
+                  <h3>Systemer som jobber når du jobber.</h3>
+                </div>
+                <p>
+                  SETUP er ikke bare et verktøy. Det er et lag i bedriften som hjelper deg å svare raskere,
+                  følge opp bedre og få mer ut av henvendelsene du allerede får.
+                </p>
+                <div class="pill-list">
+                  <span>AI</span>
+                  <span>Automasjon</span>
+                  <span>Leadflyt</span>
+                  <span>Dashboard</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container problem-layout">
+        <div class="problem-intro">
+          <span class="eyebrow" style="color: rgba(255,255,255,0.78);">Utgangspunktet</span>
+          <div class="section-head" style="margin-bottom:0;">
+            <h2>Det er sjelden mangel på arbeid. Det er mangel på struktur.</h2>
+            <p>
+              Mange SMB-er mister ikke fart fordi de er dårlige faglig. De mister fart fordi henvendelser,
+              oppfølging og administrasjon blir for manuelle, for fragmenterte og for avhengige av enkeltpersoner.
+            </p>
+          </div>
+        </div>
+
+        <div class="problem-grid">
+          <article class="problem-card">
+            <div class="icon">📞</div>
+            <h3>Henvendelser glipper</h3>
+            <p>Når du er ute på jobb, er det lett at telefon, skjema eller meldinger ikke blir fulgt opp raskt nok.</p>
+          </article>
+          <article class="problem-card">
+            <div class="icon">🗂️</div>
+            <h3>For mye ligger i hodet</h3>
+            <p>Oppfølging, prioritering og status lever i notater, innboks, SMS og hukommelse.</p>
+          </article>
+          <article class="problem-card">
+            <div class="icon">⏱️</div>
+            <h3>Admin stjeler fokus</h3>
+            <p>Det er de samme små oppgavene som stadig spiser tid: sortering, svar, påminnelser og videreføring.</p>
+          </article>
+          <article class="problem-card">
+            <div class="icon">📊</div>
+            <h3>Lite synlig verdi</h3>
+            <p>Selv når ting fungerer, er det vanskelig å se hva som faktisk skaper effekt og hva som bare tar kapasitet.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light">
+      <div class="container editorial-band">
+        <article class="story-card">
+          <div>
+            <span class="eyebrow">Hva SETUP gjør</span>
+            <h3>Vi digitaliserer og automatiserer prosesser som ellers stopper flyten i bedriften.</h3>
+            <p>
+              Målet er ikke å gi deg mer software å forholde deg til. Målet er å gjøre arbeidet lettere,
+              mer strukturert og mer målbart – uten at du må bli en teknisk operatør selv.
+            </p>
+          </div>
+
+          <div class="check-list">
+            <div class="check-item">
+              <span class="check-badge">✓</span>
+              <span>Fanger opp henvendelser og fordeler dem videre mer strukturert.</span>
+            </div>
+            <div class="check-item">
+              <span class="check-badge">✓</span>
+              <span>Automatiserer oppgaver som ellers blir glemt, utsatt eller gjort manuelt.</span>
+            </div>
+            <div class="check-item">
+              <span class="check-badge">✓</span>
+              <span>Gjør kundedialog, oppfølging og intern flyt enklere å holde oversikt over.</span>
+            </div>
+            <div class="check-item">
+              <span class="check-badge">✓</span>
+              <span>Synliggjør verdien gjennom et dashboard som faktisk er forståelig i praksis.</span>
+            </div>
+          </div>
+        </article>
+
+        <aside class="insight-card">
+          <div>
+            <span class="eyebrow" style="color: rgba(255,255,255,0.8);">Innsikt</span>
+            <h3>Et bedre system gjør bedriften mindre tilfeldig.</h3>
+            <p>
+              Når riktig informasjon blir fanget, sortert og fulgt opp, får du ikke bare mer kontroll.
+              Du får også et bedre grunnlag for vekst, prioritering og drift.
+            </p>
+          </div>
+
+          <div class="insight-panel">
+            <div class="insight-row">
+              <div>
+                <strong>Henvendelser inn</strong>
+                <span>Struktur på innkommende etter type, kilde og status</span>
+              </div>
+              <span class="chip chip-green">Aktiv</span>
+            </div>
+            <div class="insight-row">
+              <div>
+                <strong>Oppfølging ut</strong>
+                <span>Automatiske flyter som holder dialogen i bevegelse</span>
+              </div>
+              <span class="chip chip-gold">Automatisk</span>
+            </div>
+            <div class="insight-row">
+              <div>
+                <strong>Ledelsesoversikt</strong>
+                <span>Et dashboard som gir mening også for ikke-tekniske eiere</span>
+              </div>
+              <span class="chip chip-soft">Tydelig</span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section section-white" id="dashboard">
+      <div class="container dashboard-layout">
+        <div class="dashboard-copy">
+          <span class="eyebrow">Dashboard</span>
+          <h3>Se den digitale siden av bedriften slik den faktisk fungerer.</h3>
+          <p>
+            Dashboardet er ikke pynt. Det er det som gjør automatiseringen forståelig.
+            Du får en tydelig oversikt over henvendelser, responstid, oppfølging, aktivitet og neste steg.
+          </p>
+          <p>
+            I stedet for å lure på om ting blir fulgt opp, ser du hva som er pågående,
+            hva som krever handling og hvor du får verdi.
+          </p>
+
+          <div class="detail-grid">
+            <div class="detail-item">
+              <span class="dot-mini"></span>
+              <span>Oversikt over nye henvendelser på tvers av kanaler.</span>
+            </div>
+            <div class="detail-item">
+              <span class="dot-mini"></span>
+              <span>Status på oppfølging og hva som fortsatt er åpent.</span>
+            </div>
+            <div class="detail-item">
+              <span class="dot-mini"></span>
+              <span>Enklere ledelse av flyt, ikke bare enkeltoppgaver.</span>
+            </div>
+            <div class="detail-item">
+              <span class="dot-mini"></span>
+              <span>Tydeligere sammenheng mellom aktivitet og verdiskapning.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-ui" aria-label="Mockup av dashboard">
+          <div class="ui-bar">
+            <div class="ui-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="ui-title">SETUP Dashboard</div>
+          </div>
+
+          <div class="ui-shell">
+            <aside class="sidebar">
+              <div class="sidebar-group">
+                <div class="sidebar-label">Navigasjon</div>
+                <div class="side-link active"><span class="side-icon">◉</span> Oversikt</div>
+                <div class="side-link"><span class="side-icon">↳</span> Henvendelser</div>
+                <div class="side-link"><span class="side-icon">↳</span> Oppfølging</div>
+                <div class="side-link"><span class="side-icon">↳</span> Automasjoner</div>
+                <div class="side-link"><span class="side-icon">↳</span> Rapporter</div>
+              </div>
+
+              <div class="sidebar-group">
+                <div class="sidebar-label">Status</div>
+                <div class="side-link"><span class="side-icon">●</span> Aktiv drift</div>
+                <div class="side-link"><span class="side-icon">●</span> Åpne saker</div>
+                <div class="side-link"><span class="side-icon">●</span> Neste handlinger</div>
+              </div>
+            </aside>
+
+            <div class="ui-main">
+              <div class="ui-kpis">
+                <div class="ui-kpi">
+                  <div class="kpi-label">Henvendelser</div>
+                  <div class="kpi-value">Inngående flyt</div>
+                  <div class="kpi-note">Telefon, skjema, e-post, melding</div>
+                </div>
+                <div class="ui-kpi">
+                  <div class="kpi-label">Oppfølging</div>
+                  <div class="kpi-value">Neste steg</div>
+                  <div class="kpi-note">Automatisk eller manuell videreføring</div>
+                </div>
+                <div class="ui-kpi">
+                  <div class="kpi-label">Oversikt</div>
+                  <div class="kpi-value">Ledelsesnivå</div>
+                  <div class="kpi-note">Tydelig status for eier og team</div>
+                </div>
+              </div>
+
+              <div class="ui-grid">
+                <section class="panel">
+                  <div class="panel-head">
+                    <strong>Pågående flyt</strong>
+                    <span>I dag</span>
+                  </div>
+
+                  <div class="pipeline-list">
+                    <div class="pipe-item">
+                      <div class="pipe-left">
+                        <strong>Ny forespørsel registrert</strong>
+                        <span>Sortert og sendt til riktig arbeidsflyt</span>
+                      </div>
+                      <div class="pipe-tag">Ny</div>
+                    </div>
+
+                    <div class="pipe-item">
+                      <div class="pipe-left">
+                        <strong>Oppfølging planlagt</strong>
+                        <span>Automatisk neste steg opprettet</span>
+                      </div>
+                      <div class="pipe-tag">Pågår</div>
+                    </div>
+
+                    <div class="pipe-item">
+                      <div class="pipe-left">
+                        <strong>Dialog strukturert</strong>
+                        <span>Bedre oversikt for team og eier</span>
+                      </div>
+                      <div class="pipe-tag">Klar</div>
+                    </div>
+                  </div>
+                </section>
+
+                <aside class="panel">
+                  <div class="panel-head">
+                    <strong>Ledelsesnotater</strong>
+                    <span>Oversikt</span>
+                  </div>
+
+                  <div class="summary-stack">
+                    <div class="summary-box">
+                      <strong>Responstid</strong>
+                      <p>Se hvor raskt henvendelser blir tatt videre, uten å lete i flere systemer.</p>
+                    </div>
+                    <div class="summary-box">
+                      <strong>Prioritering</strong>
+                      <p>Få tydeligere skille mellom det som haster, det som kan vente og det som er ferdig.</p>
+                    </div>
+                    <div class="summary-box">
+                      <strong>Verdiskapning</strong>
+                      <p>Knytt aktivitet og struktur nærmere mot forretning, ikke bare administrasjon.</p>
+                    </div>
+                  </div>
+                </aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark" id="tjenester">
+      <div class="container services-layout">
+        <div class="services-copy">
+          <span class="eyebrow" style="color: rgba(255,255,255,0.8);">Tjenester</span>
+          <div class="section-head" style="margin-bottom:0;">
+            <h2>Praktisk AI og automasjon for bedrifter som faktisk skal få ting gjort.</h2>
+            <p>
+              Vi går inn i prosesser som skaper friksjon og bygger løsninger som reduserer manuelt arbeid,
+              gjør responsen bedre og løfter kvaliteten i driften.
+            </p>
+          </div>
+        </div>
+
+        <div class="service-grid">
+          <article class="service-card">
+            <div class="top">
+              <div class="icon">↘</div>
+              <span class="chip chip-soft">Leadflyt</span>
+            </div>
+            <h3>Henvendelseshåndtering</h3>
+            <p>Fang opp forespørsler og led dem inn i en tydelig struktur i stedet for at de havner i separate kanaler.</p>
+          </article>
+
+          <article class="service-card">
+            <div class="top">
+              <div class="icon">⟳</div>
+              <span class="chip chip-soft">Automasjon</span>
+            </div>
+            <h3>Automatisert oppfølging</h3>
+            <p>Bygg flyter som hjelper bedriften å følge opp raskere og mer konsekvent uten mer manuelt arbeid.</p>
+          </article>
+
+          <article class="service-card">
+            <div class="top">
+              <div class="icon">⌘</div>
+              <span class="chip chip-soft">Drift</span>
+            </div>
+            <h3>Intern prosessforbedring</h3>
+            <p>Rydd opp i oppgaver, status og videreføring slik at teamet bruker mindre energi på administrativ støy.</p>
+          </article>
+
+          <article class="service-card">
+            <div class="top">
+              <div class="icon">◫</div>
+              <span class="chip chip-soft">Oversikt</span>
+            </div>
+            <h3>Dashboard og rapportering</h3>
+            <p>Gjør effekten synlig for eier og team gjennom en enkel visning av aktivitet, fremdrift og verdi.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-light" id="hvordan">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Hvordan det fungerer</span>
+          <h2>Tre enkle steg fra friksjon til flyt.</h2>
+          <p>
+            Prosessen skal være lett å forstå og enkel å komme i gang med.
+            Vi bygger ikke kompleksitet. Vi fjerner den.
+          </p>
+        </div>
+
+        <div class="steps-band">
+          <article class="step-card">
+            <div class="step-no">01</div>
+            <div>
+              <h3>Vi kartlegger flaskehalser</h3>
+              <p>
+                Først ser vi hvor henvendelser kommer inn, hvor ting stopper opp og hvilke oppgaver som tar unødvendig tid.
+                Målet er å finne det som faktisk er verdt å automatisere.
+              </p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-no">02</div>
+            <div>
+              <h3>Vi bygger riktige automasjoner</h3>
+              <p>
+                Deretter setter vi opp en løsning som passer hvordan bedriften din faktisk jobber.
+                Ikke en standardpakke, men et system som gir mening i praksis.
+              </p>
+            </div>
+          </article>
+
+          <article class="step-card">
+            <div class="step-no">03</div>
+            <div>
+              <h3>Du får oversikt og effekt</h3>
+              <p>
+                Når løsningen er på plass, ser du det i flyten. Mindre manuelt arbeid, bedre respons,
+                tydeligere status og et dashboard som gjør verdien synlig.
+              </p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-white">
+      <div class="container audience-layout">
+        <div class="audience-copy">
+          <span class="eyebrow">Hvem dette er for</span>
+          <div class="section-head" style="margin-bottom:0;">
+            <h2>Bygget for SMB-er som får mange henvendelser, men ikke vil drukne i systemer.</h2>
+            <p>
+              SETUP passer for bedrifter som er åpne for AI og automatisering, men som vil ha noe som oppleves
+              konkret, nyttig og enkelt å bruke i hverdagen.
+            </p>
+          </div>
+        </div>
+
+        <div class="audience-grid">
+          <article class="audience-card">
+            <div class="icon">🔧</div>
+            <h3>Rørleggere</h3>
+            <p>Bedrifter som må håndtere innkommende henvendelser raskt og strukturert, også når de er ute på oppdrag.</p>
+          </article>
+
+          <article class="audience-card">
+            <div class="icon">⚡</div>
+            <h3>Elektrikere</h3>
+            <p>Team som vil rydde opp i forespørsler, oppfølging og intern flyt uten å bygge mer kompleksitet.</p>
+          </article>
+
+          <article class="audience-card">
+            <div class="icon">🛠</div>
+            <h3>Håndverkere</h3>
+            <p>Virksomheter som vil spare tid på administrasjon og få bedre kontroll på hva som skjer i bedriften.</p>
+          </article>
+
+          <article class="audience-card">
+            <div class="icon">🏢</div>
+            <h3>Servicebedrifter</h3>
+            <p>SMB-er med mange manuelle prosesser som ønsker en mer moderne og målbar digital drift.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-dark">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow" style="color: rgba(255,255,255,0.8);">Tillitsnivå</span>
+          <h2>Bygget for reell drift. Ikke for å imponere teknologer.</h2>
+          <p>
+            Det viktigste er ikke hvor avansert noe ser ut på innsiden.
+            Det viktigste er at det gir bedriften din ro, struktur og synlig effekt.
+          </p>
+        </div>
+
+        <div class="trust-shell">
+          <article class="trust-card">
+            <h3>Praktisk før teknisk</h3>
+            <p>
+              Vi starter med hverdagen i bedriften din. Løsningen skal være relevant for hvordan dere faktisk jobber,
+              ikke bare for hvordan et system helst vil at dere skal jobbe.
+            </p>
+          </article>
+
+          <article class="trust-card">
+            <h3>Synlig verdi</h3>
+            <p>
+              Automatisering er først interessant når du kan se forskjellen den gjør.
+              Derfor er dashboard, status og oversikt en sentral del av hele leveransen.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tight" id="kontakt">
+      <div class="container">
+        <div class="cta-shell">
+          <div class="cta-copy">
+            <span class="eyebrow">Kontakt</span>
+            <h2>Klar for å bygge en smartere digital drift?</h2>
+            <p>
+              Book en prat og se hvordan SETUP kan hjelpe bedriften din med å automatisere henvendelser,
+              rydde opp i prosesser og gjøre verdien tydeligere gjennom et moderne dashboard.
+            </p>
+            <div class="btn-row">
+              <a class="btn btn-primary" href="tel:+47999999999">Ring oss</a>
+              <a class="btn btn-secondary" href="mailto:setupworks@hotmail.com">Send e-post</a>
+            </div>
+          </div>
+
+          <aside class="contact-card">
+            <div class="contact-head">
+              <span class="eyebrow">Direkte kontakt</span>
+              <h3>Ta kontakt</h3>
+            </div>
+            <div class="contact-list">
+              <div class="contact-item">
+                <span class="label">Telefon</span>
+                <a href="tel:+47999999999">+47 99999999</a>
+              </div>
+              <div class="contact-item">
+                <span class="label">E-post</span>
+                <a href="mailto:setupworks@hotmail.com">setupworks@hotmail.com</a>
+              </div>
+              <div class="contact-item">
+                <span class="label">Passer for</span>
+                <a href="#tjenester">SMB, håndverkere, elektrikere og servicebedrifter</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a class="brand" href="#top" aria-label="SETUP">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span class="brand-text">SETUP</span>
+          </a>
+          <p>
+            En digital operasjonspartner for norske SMB-er som vil automatisere kjedelige prosesser,
+            få bedre oversikt og bygge en mer moderne drift.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <strong>Navigasjon</strong>
+          <a href="#tjenester">Tjenester</a>
+          <a href="#hvordan">Hvordan det fungerer</a>
+          <a href="#dashboard">Dashboard</a>
+          <a href="#kontakt">Kontakt</a>
+        </div>
+
+        <div class="footer-col">
+          <strong>Kontakt</strong>
+          <a href="tel:+47999999999">+47 99999999</a>
+          <a href="mailto:setupworks@hotmail.com">setupworks@hotmail.com</a>
+        </div>
+
+        <div class="footer-col">
+          <strong>Fokus</strong>
+          <span>AI og automatisering</span>
+          <span>Henvendelseshåndtering</span>
+          <span>Dashboard og oversikt</span>
+          <span>Digital drift for SMB</span>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 SETUP</span>
+        <span>Digital drift, AI og automatisering for SMB</span>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
+```
